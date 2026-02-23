@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+
+*{
+  font-family: "Roboto", sans-serif;
+}
+
+@layer base{
+  button{
+    cursor: pointer;
+  }
+  input:not([type="checkbox"]){
+    @apply outline-none focus:ring border border-gray-400 focus:ring-blue-200 focus:border-blue-500 rounded-lg;
+  }
+  textarea{
+    @apply outline-none focus:ring border border-gray-400 focus:ring-blue-200 focus:border-blue-500 rounded-lg resize-none;
+  }
+}
+
