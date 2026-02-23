@@ -8,9 +8,6 @@ import img4 from '../../assets/img4.jpeg'
 
 const Testimonial = () => {
 
-
-
-
     const cardsData = [
         {
             image: img4, // 2. Use the variable name, NOT a string
