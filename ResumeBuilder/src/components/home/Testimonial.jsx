@@ -1,38 +1,46 @@
 import React from 'react'
 import { BookUserIcon } from 'lucide-react'
 import Title from './Title';
+import img1 from '../../assets/img1.jpeg'
+import img2 from '../../assets/img2.jpeg'
+import img3 from '../../assets/img3.jpeg'
+import img4 from '../../assets/img4.jpeg'
 
 const Testimonial = () => {
 
+
+
+
     const cardsData = [
         {
-            image: '/src/assets/img4.jpeg',
+            image: img4, // 2. Use the variable name, NOT a string
             name: 'Bipin Chourasia',
             role: 'CS Student, 3rd Year',
             date: 'Feb 20, 2026',
             review: "Made my first ever resume using this. Got a reply from an internship within a week. Didn't expect it to be this easy honestly."
         },
         {
-            image: '/src/assets/img3.jpeg',
+            image: img3,
             name: 'Kaushal Kishore',
             role: 'Bsc Biotech, 3rd Year',
             date: 'Feb 10, 2026',
             review: 'I had no idea how to format a resume properly. This just handled it for me. Looks way more professional than what I had before.'
         },
         {
-            image: '/src/assets/img2.jpeg',
+            image: img2,
             name: 'Prakhar Piyush',
             role: 'BCA Final Year',
             date: 'Feb 15, 2026',
             review: 'Simple and clean. I was overthinking my resume for months. Built one here in maybe 20 minutes and it actually looks good.'
         },
         {
-            image: '/src/assets/img1.jpeg',
+            image: img1,
             name: 'Abhik Das',
             role: 'Bsc Biotech, 3rd Year',
             date: 'Jan 28, 2026',
             review: 'The templates are really clean. My college friends kept asking me who made my resume so I just shared the link.'
         },
+
     ];
 
     // Repeat enough times so marquee never gaps

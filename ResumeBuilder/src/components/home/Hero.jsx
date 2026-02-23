@@ -11,7 +11,7 @@ const Hero = () => {
 
             {/* ================= NAVBAR ================= */}
             <nav className="flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-40 py-6">
-                <img src="/Rlogo.png" alt="logo" className="h-10 w-auto" />
+                <img src="Rlogo.png" alt="logo" className="h-10 w-auto" />
 
                 <div className="hidden md:flex items-center gap-10 text-sm font-medium">
                     <a href="#features" className="hover:text-indigo-600 transition">
