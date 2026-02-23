@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
+import resume from '../../assets/resume.png'
 const Hero = () => {
     const { user } = useSelector((state) => state.auth);
     const [menuOpen, setMenuOpen] = React.useState(false);
@@ -124,7 +124,7 @@ const Hero = () => {
 
                         <div className="relative bg-white border rounded-xl shadow-2xl p-4">
                             <img
-                                src="/src/assets/resume.png"
+                                src = {resume}
                                 alt="Resume Preview"
                                 className="rounded-lg"
                             />
