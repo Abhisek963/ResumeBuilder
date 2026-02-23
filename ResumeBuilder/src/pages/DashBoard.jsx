@@ -1,14 +1,27 @@
 import { FilePenLineIcon, PencilIcon, PlusIcon, TrashIcon, UploadCloudIcon, XIcon, UploadCloud, LoaderCircleIcon } from 'lucide-react'
 import React, { useEffect } from 'react'
 import { useState } from 'react'
-import { dummyResumeData } from "../assets/assets";
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import api from '../configs/api';
 import { toast } from 'react-hot-toast';
 import pdfToText from 'react-pdftotext';
-import { all } from 'axios';
 
+
+
+
+
+  const ModalWrapper = ({ onClose, onSubmit, children }) => (
+    <form onSubmit={onSubmit} onClick={onClose}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      style={{ background: 'rgba(15,13,26,0.75)', backdropFilter: 'blur(6px)' }}>
+      <div onClick={e => e.stopPropagation()}
+        className="relative w-full max-w-sm rounded-2xl p-7 shadow-2xl"
+        style={{ background: 'white', border: '1px solid #e5e7eb' }}>
+        {children}
+      </div>
+    </form>
+  );
 const DashBoard = () => {
 
   const { user, token } = useSelector((state) => state.auth)
@@ -97,17 +110,7 @@ const DashBoard = () => {
     if (token) loadAllResumes();
   }, [token]);
 
-  const ModalWrapper = ({ onClose, onSubmit, children }) => (
-    <form onSubmit={onSubmit} onClick={onClose}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      style={{ background: 'rgba(15,13,26,0.75)', backdropFilter: 'blur(6px)' }}>
-      <div onClick={e => e.stopPropagation()}
-        className="relative w-full max-w-sm rounded-2xl p-7 shadow-2xl"
-        style={{ background: 'white', border: '1px solid #e5e7eb' }}>
-        {children}
-      </div>
-    </form>
-  );
+
 
   const inputClass = "w-full px-4 py-2.5 rounded-xl border border-zinc-200 bg-zinc-50 text-sm text-zinc-800 outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition-all placeholder:text-zinc-400 mb-4";
 
