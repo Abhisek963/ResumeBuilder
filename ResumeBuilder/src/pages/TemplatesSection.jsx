@@ -61,11 +61,12 @@ const dummyData = {
 };
 
 const templates = [
-  { id: "classic",       name: "Classic",       tag: "Most Popular", tagColor: "#f59e0b", description: "Clean layout with accent top bar and bordered timeline. Perfect for corporate roles.", accentColor: "#2563EB", preview: "classic" },
-  { id: "corporate",     name: "Corporate",     tag: "Executive",    tagColor: "#6366f1", description: "Bold dark sidebar with two-column layout. Ideal for senior positions.",               accentColor: "#10b981", preview: "corporate" },
-  { id: "minimal-image", name: "Minimal + Photo",tag: "With Photo",  tagColor: "#ec4899", description: "Colored sidebar with profile photo. Great for creative professionals.",               accentColor: "#7c3aed", preview: "minimal-image" },
-  { id: "minimal",       name: "Minimal",       tag: "Elegant",      tagColor: "#14b8a6", description: "Ultra-clean typography-first layout. Let your content speak.",                       accentColor: "#0f172a", preview: "minimal" },
-  { id: "timeline",      name: "Timeline",      tag: "Modern",       tagColor: "#f43f5e", description: "Vertical timeline that visually narrates your career journey.",                      accentColor: "#dc2626", preview: "timeline" },
+  { id: "classic",       name: "Classic",          tag: "Most Popular", tagColor: "#f59e0b", description: "Clean layout with accent top bar and bordered timeline. Perfect for corporate roles.", accentColor: "#2563EB", preview: "classic" },
+  { id: "corporate",     name: "Corporate",         tag: "Executive",    tagColor: "#6366f1", description: "Bold dark sidebar with two-column layout. Ideal for senior positions.",               accentColor: "#10b981", preview: "corporate" },
+  { id: "minimal-image", name: "Minimal + Photo",   tag: "With Photo",   tagColor: "#ec4899", description: "Colored sidebar with profile photo. Great for creative professionals.",               accentColor: "#7c3aed", preview: "minimal-image" },
+  { id: "minimal",       name: "Minimal",           tag: "Elegant",      tagColor: "#14b8a6", description: "Ultra-clean typography-first layout. Let your content speak.",                       accentColor: "#0f172a", preview: "minimal" },
+  { id: "timeline",      name: "Timeline",          tag: "Modern",       tagColor: "#f43f5e", description: "Vertical timeline that visually narrates your career journey.",                      accentColor: "#dc2626", preview: "timeline" },
+  { id: "ats",           name: "ATS Friendly",      tag: "Job Ready",    tagColor: "#16a34a", description: "A clean, parser-friendly layout optimized to pass Applicant Tracking Systems.",      accentColor: "#1d4ed8", preview: "ats" },
 ];
 
 /* ── Thumbnail skeletons ── */
@@ -170,7 +171,38 @@ const TimelinePreview = ({ accent }) => (
   </div>
 );
 
-const PreviewMap = { classic: ClassicPreview, corporate: CorporatePreview, "minimal-image": MinimalImagePreview, minimal: MinimalPreview, timeline: TimelinePreview };
+const ATSPreview = ({ accent }) => (
+  <div style={{ width:380,height:280,background:"white",padding:20,fontFamily:"Georgia,serif",overflow:"hidden" }}>
+    {/* Header: name left, contact right */}
+    <div style={{ display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:8 }}>
+      <div>
+        <div style={{ height:16,width:130,background:"#111827",borderRadius:2,marginBottom:5 }}/>
+        <div style={{ height:7,width:80,background:accent,borderRadius:2,marginBottom:3 }}/>
+        <div style={{ height:7,width:90,background:accent,borderRadius:2 }}/>
+      </div>
+      <div>
+        {[70,60,55].map((w,i)=><div key={i} style={{ height:6,width:w,background:"#9ca3af",borderRadius:2,marginBottom:4 }}/>)}
+      </div>
+    </div>
+    <div style={{ height:1,background:"#6b7280",marginBottom:8 }}/>
+    {/* Sections */}
+    {["EDUCATION","SKILLS SUMMARY","WORK EXPERIENCE"].map((s,i)=>(
+      <div key={i} style={{ marginBottom:8 }}>
+        <div style={{ height:8,width:110,background:"#1f2937",borderRadius:2,marginBottom:4,margin:"0 auto 4px" }}/>
+        <div style={{ height:1,background:"#d1d5db",marginBottom:5 }}/>
+        {i===1
+          ?[0,1,2].map(j=><div key={j} style={{ display:"flex",gap:6,marginBottom:3 }}>
+              <div style={{ height:6,width:45,background:"#374151",borderRadius:2 }}/>
+              <div style={{ height:6,width:90,background:"#e5e7eb",borderRadius:2 }}/>
+            </div>)
+          :[90,75,82].map((w,j)=><div key={j} style={{ height:5,width:`${w}%`,background:"#e5e7eb",borderRadius:2,marginBottom:3 }}/>)
+        }
+      </div>
+    ))}
+  </div>
+);
+
+const PreviewMap = { classic: ClassicPreview, corporate: CorporatePreview, "minimal-image": MinimalImagePreview, minimal: MinimalPreview, timeline: TimelinePreview, ats: ATSPreview };
 
 /* ── Full resume previews inside the modal ── */
 const formatDate = (d) => { if(!d) return ""; const [y,m]=d.split("-"); return new Date(y,m-1).toLocaleDateString("en-US",{year:"numeric",month:"short"}); };
@@ -262,7 +294,7 @@ const MinimalImageFull = ({ data, accent }) => (
 );
 
 const MinimalFull = ({ data, accent }) => (
-  <div style={{ background:"white", padding:"40px 48px", fontFamily:"'Georgia', serif", maxWidth:700, margin:"0 auto" }}>
+  <div style={{ background:"white", padding:"40px 48px", fontFamily:"Georgia, serif", maxWidth:700, margin:"0 auto" }}>
     <h1 style={{ fontSize:36, fontWeight:300, color:"#111", marginBottom:10, letterSpacing:"-0.02em" }}>{data.personal_info.full_name}</h1>
     <div style={{ display:"flex", flexWrap:"wrap", gap:"8px 24px", fontSize:12, color:"#9ca3af", marginBottom:32 }}>
       {[data.personal_info.email, data.personal_info.phone, data.personal_info.location].map((v,i)=><span key={i}>{v}</span>)}
@@ -315,7 +347,90 @@ const TimelineFull = ({ data, accent }) => (
   </div>
 );
 
-const FullPreviewMap = { classic: ClassicFull, corporate: CorporateFull, "minimal-image": MinimalImageFull, minimal: MinimalFull, timeline: TimelineFull };
+const ATSFull = ({ data, accent }) => (
+  <div style={{ background:"white", padding:"32px 40px", fontFamily:"Georgia, Times New Roman, serif", maxWidth:700, margin:"0 auto" }}>
+    {/* Header */}
+    <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:8 }}>
+      <div>
+        <h1 style={{ fontSize:26,fontWeight:700,color:"#111",marginBottom:4 }}>{data.personal_info.full_name}</h1>
+        {data.personal_info.linkedin && <div style={{ fontSize:12,color:accent,marginBottom:2 }}>LinkedIn: {data.personal_info.linkedin}</div>}
+        {data.personal_info.website && <div style={{ fontSize:12,color:accent }}>{data.personal_info.website}</div>}
+      </div>
+      <div style={{ textAlign:"right",fontSize:12,color:"#374151" }}>
+        {data.personal_info.email && <div style={{ marginBottom:3 }}>Email: {data.personal_info.email}</div>}
+        {data.personal_info.phone && <div style={{ marginBottom:3 }}>Mobile: {data.personal_info.phone}</div>}
+        {data.personal_info.location && <div>{data.personal_info.location}</div>}
+      </div>
+    </div>
+    <hr style={{ borderColor:"#6b7280", marginBottom:14 }}/>
+
+    {/* Education */}
+    <div style={{ marginBottom:12 }}>
+      <div style={{ fontSize:11,fontWeight:700,textAlign:"center",textTransform:"uppercase",letterSpacing:"0.12em",color:"#111",marginBottom:5 }}>Education</div>
+      <hr style={{ borderColor:"#d1d5db",marginBottom:8 }}/>
+      {data.education.map((e,i)=>(
+        <div key={i} style={{ display:"flex",justifyContent:"space-between",marginBottom:5 }}>
+          <div>
+            <div style={{ fontWeight:700,fontSize:13,color:"#111" }}>{e.institution}</div>
+            <div style={{ fontSize:12,color:"#374151" }}>{e.degree}{e.field?` in ${e.field}`:""}{e.gpa?`; GPA: ${e.gpa}`:""}</div>
+          </div>
+          <div style={{ fontSize:12,color:"#374151",textAlign:"right" }}>
+            <div>{formatDate(e.graduation_date)}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+    <hr style={{ borderColor:"#d1d5db",marginBottom:12 }}/>
+
+    {/* Skills */}
+    <div style={{ marginBottom:12 }}>
+      <div style={{ fontSize:11,fontWeight:700,textAlign:"center",textTransform:"uppercase",letterSpacing:"0.12em",color:"#111",marginBottom:5 }}>Skills Summary</div>
+      <hr style={{ borderColor:"#d1d5db",marginBottom:8 }}/>
+      <div style={{ display:"flex",gap:8,marginBottom:4 }}>
+        <span style={{ fontWeight:700,fontSize:12,color:"#111",minWidth:60 }}>• Skills:</span>
+        <span style={{ fontSize:12,color:"#374151" }}>{data.skills.join(", ")}</span>
+      </div>
+    </div>
+    <hr style={{ borderColor:"#d1d5db",marginBottom:12 }}/>
+
+    {/* Experience */}
+    <div style={{ marginBottom:12 }}>
+      <div style={{ fontSize:11,fontWeight:700,textAlign:"center",textTransform:"uppercase",letterSpacing:"0.12em",color:"#111",marginBottom:5 }}>Work Experience</div>
+      <hr style={{ borderColor:"#d1d5db",marginBottom:8 }}/>
+      {data.experience.map((e,i)=>(
+        <div key={i} style={{ marginBottom:10 }}>
+          <div style={{ display:"flex",justifyContent:"space-between",marginBottom:3 }}>
+            <div style={{ fontWeight:700,fontSize:13,color:"#111" }}>{e.position} | {e.company}</div>
+            <span style={{ fontSize:12,color:"#374151" }}>{formatDate(e.start_date)} - {e.is_current?"Present":formatDate(e.end_date)}</span>
+          </div>
+          {e.description.split("\n").filter(l=>l.trim()).map((line,j)=>(
+            <div key={j} style={{ display:"flex",gap:8,fontSize:12,color:"#374151",marginBottom:2 }}>
+              <span style={{ marginTop:1,flexShrink:0 }}>○</span>
+              <span>{line.replace(/^[-•○]\s*/,"")}</span>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+    <hr style={{ borderColor:"#d1d5db",marginBottom:12 }}/>
+
+    {/* Projects */}
+    <div style={{ marginBottom:12 }}>
+      <div style={{ fontSize:11,fontWeight:700,textAlign:"center",textTransform:"uppercase",letterSpacing:"0.12em",color:"#111",marginBottom:5 }}>Projects</div>
+      <hr style={{ borderColor:"#d1d5db",marginBottom:8 }}/>
+      {data.projects.map((p,i)=>(
+        <div key={i} style={{ marginBottom:8 }}>
+          <div style={{ fontWeight:700,fontSize:13,color:"#111",marginBottom:3 }}>{p.name}{p.type?` | ${p.type}`:""}</div>
+          <div style={{ display:"flex",gap:8,fontSize:12,color:"#374151" }}>
+            <span style={{ flexShrink:0 }}>○</span><span>{p.description}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const FullPreviewMap = { classic: ClassicFull, corporate: CorporateFull, "minimal-image": MinimalImageFull, minimal: MinimalFull, timeline: TimelineFull, ats: ATSFull };
 
 /* ── Main Component ── */
 const TemplatesSection = () => {
@@ -356,7 +471,7 @@ const TemplatesSection = () => {
               <span className="block text-zinc-400 font-light">template.</span>
             </h2>
             <p className="mt-4 text-zinc-500 text-base max-w-md mx-auto leading-relaxed">
-              Five professionally designed layouts — each crafted to impress recruiters and pass ATS systems.
+              Six professionally designed layouts — each crafted to impress recruiters and pass ATS systems.
             </p>
           </div>
 
@@ -378,8 +493,6 @@ const TemplatesSection = () => {
                     <div style={{ transform:"scale(0.5)", transformOrigin:"top left", width:380, height:280 }}>
                       <Preview accent={t.accentColor} />
                     </div>
-
-                    {/* Hover overlay — Preview button */}
                     <div className="tpl-overlay absolute inset-0 bg-black/25 flex items-center justify-center">
                       <button
                         className="use-btn flex items-center gap-1.5 bg-white text-zinc-900 text-xs font-semibold px-5 py-2.5 rounded-full shadow-xl hover:bg-zinc-50 transition-colors"
@@ -429,8 +542,6 @@ const TemplatesSection = () => {
           onClick={() => setPreviewTemplate(null)}>
           <div className="modal-in relative w-full max-w-3xl max-h-[90vh] bg-white rounded-2xl overflow-hidden shadow-2xl"
             onClick={e => e.stopPropagation()}>
-
-            {/* Modal header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-100">
               <div className="flex items-center gap-3">
                 <div className="w-3 h-3 rounded-full" style={{ backgroundColor: activeTemplate.accentColor }}/>
@@ -449,8 +560,6 @@ const TemplatesSection = () => {
                 </button>
               </div>
             </div>
-
-            {/* Resume preview */}
             <div className="overflow-y-auto" style={{ maxHeight:"calc(90vh - 65px)", background:"#f9fafb" }}>
               <div className="p-6">
                 <FullPreview data={dummyData} accent={activeTemplate.accentColor} />

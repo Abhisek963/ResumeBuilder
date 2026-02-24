@@ -173,7 +173,7 @@ const Login = () => {
 
           {/* Logo badge */}
           <div className="logo-badge">
-            <img src="/public/logo.png" alt="logo" className="h-7 w-auto" onError={e => { e.target.style.display='none' }} />
+            <img src="logo.png" alt="logo" className="h-7 w-auto" onError={e => { e.target.style.display='none' }} />
           </div>
 
           {/* Heading */}

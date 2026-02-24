@@ -5,6 +5,7 @@ import MinimalTemplate from './templates/MinimalTemplate'
 import MinimalImageTemplate from './templates/MinimalImageTemplate'
 import CorporateTemplate from './templates/CorporateTemplate'
 import TimelineTemplate from './templates/TimelineTemplate'
+import ATSTemplate from './templates/ATSTemplate'
 
 const ResumePreview = ({data,template,accentColor,classes=""}) => {
 
@@ -20,6 +21,8 @@ const ResumePreview = ({data,template,accentColor,classes=""}) => {
                 return <CorporateTemplate data={data}  accentColor={accentColor} />;
             case "timeline":
                 return <TimelineTemplate data={data}  accentColor={accentColor} />
+            case "ats":
+                return <ATSTemplate data={data} accentColor={accentColor} />
                 
             default:
                     return <ClassicTemplate data={data} accentColor={accentColor} />;

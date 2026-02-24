@@ -12,7 +12,8 @@ const TemplateSelector = ({selectedTemplate, onChange}) => {
         {id: 'minimal', name: 'Minimal', preview: "A clean and simple design with minimal visual elements."},
         {id: 'minimal-image', name: 'Minimal with Image', preview: "A minimal design that includes a profile image."},
         {id: "corporate", name: 'Corporate', preview: "A structured and professional two-column layout ideal for corporate roles."},
-        { id: 'timeline', name: 'Timeline', preview: "A modern timeline-based layout highlighting experience progression." },
+        {id: 'timeline', name: 'Timeline', preview: "A modern timeline-based layout highlighting experience progression." },
+        {id: 'ats', name: 'ATS Friendly', preview: "A clean, parser-friendly layout optimized to pass Applicant Tracking Systems." }
 ];
 
 

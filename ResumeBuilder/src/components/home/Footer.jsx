@@ -46,7 +46,7 @@ const Footer = () => {
         <div className="max-w-lg mx-auto px-6 py-8 flex flex-col items-center gap-5">
 
           {/* Logo */}
-          <img src='/public/Rlogo.png' alt='logo' className='h-9 w-auto opacity-80' />
+          <img src='Rlogo.png' alt='logo' className='h-9 w-auto opacity-80' />
 
           {/* Nav links */}
           <div className="flex items-center gap-6">
